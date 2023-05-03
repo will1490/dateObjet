@@ -23,3 +23,28 @@ console.log('Date and time in Anchorage, USA: ' + anchorageDate);
 console.log('Date and time in Reykjavik, Iceland: ' + reykjavikDate);
 console.log('Date and time in Saint-Petersburg, Russia: ' + stPetersburgDate);
 console.log('Date and time in Brussels, Belgium: ' + brusselsTime);
+
+/* Exercise 2
+A => Using timestamps, find how many days have passed since the date of your birth. Feeling old, yet?
+B => Write a function to find how many days have passed since any point in time (after 1970).
+*/
+
+// A =>
+let birthdate = '1969-08-28';
+
+let daysSinceBirth = Math.floor((new Date() - new Date(birthdate)) / (1000 * 60 * 60 * 24));
+
+console.log('Number of days since my birth: ' + daysSinceBirth);
+
+// B =>
+function daysSince(date) {
+    // Convert the date string to a timestamp in milliseconds
+    const timestamp = new Date(date).getTime();
+    
+    // Calculate the number of days passed since the timestamp
+    let days = Math.floor((new Date() - timestamp) / (1000 * 60 * 60 * 24));
+    
+    return days;
+  }
+  console.log('Days since 1945-06-06: ' + daysSince('1945-06-06'));
+  

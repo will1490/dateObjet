@@ -58,5 +58,4 @@ body {
     white-space: nowrap;
     overflow: hidden;
     border-right: 1px solid;
-    animation: blink 1.0s steps(50) infinite;
 }
