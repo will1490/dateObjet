@@ -30,10 +30,23 @@
         
         <h2>Exercise 4</h2>
         <div class="affichageExo4">
-          <div class="vertical"></div>
-          <div class="horizontal"></div>
+
+          <div id="calendar">
+            <div id="dayOfWeekCalendar"></div>
+            <div class="dayMonth">
+              <div id="dayNumberOfCalendar"></div>
+                <div id="monthOfCalendar"></div>
+            </div>
+            <div id="yearOfCalendar"></div>
+          </div>
+
+          <div id="clock">
+            <div id="hoursOfClock" onclick="toggleTimeFormat()"></div>
+            <div id="minutesOfClock"></div>
+            <div id="secondsOfClock"></div>
+          </div>
         </div>
 
-    <script defer src="./script.js"></script>
+    <script src="./script.js"></script>
 </body>
 </html>

@@ -82,3 +82,74 @@ affichageExo3.innerHTML =
 
 // EXERCICE 4  
 
+//Calendar
+document.addEventListener("DOMContentLoaded", function() {
+  const listDays = new Array('sun','mon','tue','wed','thu','fri','sat');
+  const listMonths = new Array('jan','feb','mar','apr','may','jun','jul','aou','sep','oct','nov','dec');
+
+  const calendarDate = new Date();
+
+  let dayOfWeek = listDays[calendarDate.getDay()];
+  let dayOfWeekElement = document.getElementById("dayOfWeekCalendar");
+  dayOfWeekElement.classList.add("dayOfWeekCalendar");
+  dayOfWeekElement.textContent = dayOfWeek;
+
+  let dayNumber = calendarDate.getDate();
+  let dayNumberElement = document.getElementById("dayNumberOfCalendar");
+  dayNumberElement.classList.add("dayNumberOfCalendar");
+  dayNumberElement.textContent = dayNumber;
+
+  let month = listMonths[calendarDate.getMonth()];
+  let monthElement = document.getElementById("monthOfCalendar");
+  monthElement.classList.add("monthOfCalendar");
+  monthElement.textContent = month;
+
+  let year = calendarDate.getFullYear();
+  let yearElement = document.getElementById("yearOfCalendar");
+  yearElement.classList.add("yearOfCalendar");
+  yearElement.textContent = year;
+});
+
+// Clock
+
+// Add eventListener onclick for element hoursOfClock
+let hoursElement = document.getElementById("hoursOfClock");
+hoursElement.addEventListener("click", toggleTimeFormat);
+
+function updateClock() {
+  let now = new Date();
+  let hours = now.getHours();
+  let minutes = now.getMinutes();
+  let seconds = now.getSeconds();
+  let isAm = hours < 12;
+  let timeFormat = getTimeFormat(); // get format 
+
+  if (timeFormat === "12") {
+    hours = hours % 12 || 12; // Convert format 12 hours
+  } else {
+    hours = hours.toString().padStart(2, "0"); // Convert format 24 hours
+  }
+
+  let time = hours + ":" + minutes.toString().padStart(2, "0") + ":" + seconds.toString().padStart(2, "0");
+  if (timeFormat === "12") {
+    time += isAm ? " AM" : " PM";
+  }
+
+  document.getElementById("clock").textContent = time;
+}
+
+function toggleTimeFormat() {
+  let timeFormat = getTimeFormat();
+  timeFormat = timeFormat === "12" ? "24" : "12"; // Switch between format 12 hours and 24 hours
+  localStorage.setItem("timeFormat", timeFormat); // record update format hours
+  updateClock(); 
+}
+
+function getTimeFormat() {
+  // Check if in local storage
+  let storedFormat = localStorage.getItem("timeFormat");
+  return storedFormat ? storedFormat : "24"; // Use defaultFormat 24 hours if not in storage
+}
+
+setInterval(updateClock, 1000); 
+updateClock(); // update on load
