@@ -85,7 +85,7 @@ affichageExo3.innerHTML =
 //Calendar
 document.addEventListener("DOMContentLoaded", function() {
   const listDays = new Array('sun','mon','tue','wed','thu','fri','sat');
-  const listMonths = new Array('jan','feb','mar','apr','may','jun','jul','aou','sep','oct','nov','dec');
+  const listMonths = new Array('jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec');
 
   const calendarDate = new Date();
 
@@ -111,8 +111,14 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 // Clock
+function toggleTimeFormat() {
+  let timeFormat = getTimeFormat();
+  timeFormat = timeFormat === "12" ? "24" : "12"; // Toggle between 12-hour and 24-hour format
+  localStorage.setItem("timeFormat", timeFormat); // Store the updated format in local storage
+  updateClock();
+}
 
-// Add eventListener onclick for element hoursOfClock
+// Add event listener onclick for element hoursOfClock
 let hoursElement = document.getElementById("hoursOfClock");
 hoursElement.addEventListener("click", toggleTimeFormat);
 
@@ -122,34 +128,31 @@ function updateClock() {
   let minutes = now.getMinutes();
   let seconds = now.getSeconds();
   let isAm = hours < 12;
-  let timeFormat = getTimeFormat(); // get format 
-
-  if (timeFormat === "12") {
-    hours = hours % 12 || 12; // Convert format 12 hours
-  } else {
-    hours = hours.toString().padStart(2, "0"); // Convert format 24 hours
-  }
-
-  let time = hours + ":" + minutes.toString().padStart(2, "0") + ":" + seconds.toString().padStart(2, "0");
-  if (timeFormat === "12") {
-    time += isAm ? " AM" : " PM";
-  }
-
-  document.getElementById("clock").textContent = time;
-}
-
-function toggleTimeFormat() {
   let timeFormat = getTimeFormat();
-  timeFormat = timeFormat === "12" ? "24" : "12"; // Switch between format 12 hours and 24 hours
-  localStorage.setItem("timeFormat", timeFormat); // record update format hours
-  updateClock(); 
+
+  if (timeFormat === "12") {
+    hours = hours % 12 || 12; // Convert to 12-hour format
+  } else {
+    hours = hours.toString().padStart(2, "0"); // Convert to 24-hour format
+  }
+
+  document.getElementById("hoursOfClock").textContent = hours;
+  document.getElementById("minutesOfClock").textContent = minutes.toString().padStart(2, "0");
+  document.getElementById("secondsOfClock").textContent = seconds.toString().padStart(2, "0");
+  
+  if (timeFormat === "12") {
+    document.getElementById("clock").classList.add("format12"); // Add class for 12-hour format
+  } else {
+    document.getElementById("clock").classList.remove("format12"); // Remove class for 12-hour format
+  }
 }
 
 function getTimeFormat() {
   // Check if in local storage
   let storedFormat = localStorage.getItem("timeFormat");
-  return storedFormat ? storedFormat : "24"; // Use defaultFormat 24 hours if not in storage
+  return storedFormat ? storedFormat : "24"; // Use default format as 24-hour if not in storage
 }
 
-setInterval(updateClock, 1000); 
-updateClock(); // update on load
+setInterval(updateClock, 1000);
+updateClock(); // Update on load
+

@@ -26,6 +26,7 @@ h2 {
     color: blue;
 }
 .affichageExo4 {
+    background-color: lightsteelblue;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -53,9 +54,15 @@ h2 {
     font-weight: 900;
 }
 #clock {
+    display: flex;
+    justify-content: center;
+    align-items: last baseline;
     font-size: 110px;
     font-weight: 700;
     color: rgb(70, 69, 69);
+}
+.time {
+    margin: 0 10px;
 }
 #dayNumberOfCalendar, #monthOfCalendar {
     height:90px;
@@ -64,7 +71,8 @@ h2 {
     align-items: center;
 }
 #clock #secondsOfClock {
-    font-size: 0.5em;
+    font-size: 50px;
+    vertical-align: sub;
   }
 
   
